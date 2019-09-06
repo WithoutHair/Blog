@@ -1,17 +1,14 @@
 <template>
-    <div>
+    <div id="section">
         <i class="el-icon-s-fold fold" v-show="showfold" @click="handleFold"></i>
         <i class="el-icon-s-unfold fold" v-show="!showfold" @click="handleUnFold"></i>
         <div class="article-info">
-            <el-card
-                v-for="item of articles"
-                :timestamp="item.create_at"
-                placement="top"
-                :key="item.article_id"
-                @click.native="handleClick(item.article_id)">
-                <h3 style="margin-bottom:1%;font:1.4em;font-weight:bold;font-size:20px">{{item.title}}</h3>
-                <p><i class="el-icon-view" style="padding-right:3px"></i>{{item.watch}}</p>
-            </el-card>
+            <router-link v-for="item of article" :to="'/article/' + item.article_id" :key="item.article_id">
+                <el-card style="margin-top:30px;">
+                    <p style="margin-bottom:10px;font-weight:bold;font-size:1.6em">{{item.title}}</p>
+                    <p><i class="el-icon-view" style="padding-right:3px"></i>{{item.watch}}</p>
+                </el-card>
+            </router-link>
         </div>
     </div>
 </template>
@@ -23,11 +20,8 @@ export default {
     data () {
         return {
             showfold: true,
-            article: {}
+            article: []
         }
-    },
-    props: {
-        articles: Array
     },
     methods: {
         handleFold () {
@@ -41,40 +35,43 @@ export default {
             const sidebar = document.querySelector('#sidebar')
             const section = document.querySelector('#section')
             sidebar.style.marginLeft = 0
-            section.style.width = 83.333 + '%'
+            section.style.width = 83.3 + '%'
             this.showfold = !this.showfold
         },
-        handleClick (val) {
+        getListArticles () {
             const that = this
-            axios.get('/api/article_detail', {
-                params: {
-                    id: val
-                }
-            })
+            axios.get('/api/list_articles')
                 .then(function (res) {
                     res = res.data
                     if (res.success === 1) {
-                        that.article = res.data
+                        const data = res.data
+                        that.article = data
                     }
                 })
-            this.$emit('change', this.article)
         }
+    },
+    mounted () {
+        this.getListArticles()
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-    .fold
-        padding 10px 0 0 14px
-        cursor pointer
-        color #bbb
-        font-size 2em
-    .article-info
-        width 70%
-        margin 0 auto
-        margin-top 2%
-        .el-card
+    #section
+        position absolute
+        top 0
+        bottom 0
+        right 0
+        width 83.333%
+        transition width .4s
+        .fold
+            padding 10px 0 0 14px
             cursor pointer
-        &:hover
-            box-shadow 0 2px 24px 0 rgba(0,0,0,.1)
+            color #bbb
+            font-size 2em
+        .article-info
+            width 64%
+            margin 20px auto
+            .el-card:hover
+                background #eee
 </style>

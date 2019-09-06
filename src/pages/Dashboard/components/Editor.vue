@@ -3,8 +3,9 @@
       <div class="header">
           <el-input class="title" type="text" placeholder="请输入文章标题" maxlength="20" v-model="article.title"></el-input>
           <el-button class="publish" @click="showPublish=!showPublish">发布文章</el-button>
+          <router-link class="backhome" tag="el-button" to="/">返回主页</router-link>
       </div>
-      <mavon-editor :plain="true" v-model="article.value" @save="handleSave"/>
+      <mavon-editor :plain="true" @save="handleSave"/>
       <div class="publish-back" v-show="showPublish">
           <el-card class="publish-content">
               <h4 style="font-weight: bold;font-size:1.2em">发布文章</h4>
@@ -27,7 +28,7 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'DashboardBlogging',
+    name: 'DashboardEditor',
     data () {
         return {
             showPublish: false,
@@ -109,7 +110,7 @@ export default {
         },
         handleTag () { // 取标签
             const that = this
-            axios.get('/api/listTags')
+            axios.get('/api/list_tags')
                 .then(function (res) {
                     res = res.data
                     if (res.success === 1) {
@@ -127,13 +128,15 @@ export default {
 
 <style lang="stylus" scoped>
     .content >>> .v-note-wrapper
-        min-height 90%
+        height 90%
     .content
+        overflow hidden
         position absolute
         top 0
         right 0
         bottom 0
         left 0
+        background #fff
         .header
             height 10%
             .title
@@ -141,6 +144,9 @@ export default {
                 margin 1% 2%
             .publish
                 background #4caf50
+                color #fff
+            .backhome
+                background #ca0c16
                 color #fff
         .mavon-editor
             height 90%

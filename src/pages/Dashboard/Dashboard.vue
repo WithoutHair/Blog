@@ -1,19 +1,24 @@
 <template>
-  <div>
+  <div style="background:#fff" id="sidebar-dash" >
       <dashboard-blogging></dashboard-blogging>
   </div>
 </template>
 
 <script>
-import DashboardBlogging from './components/Blogging'
+import DashboardEditor from './components/Editor'
 export default {
     name: 'Dashboard',
     components: {
-        DashboardBlogging
+        DashboardEditor
     }
 }
 </script>
 
-<style>
-
+<style lang="stylus" scoped>
+    #sidebar-dash
+        position absolute
+        top 0
+        right 0
+        bottom 0
+        left 0
 </style>
