@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Home></Home>
+        <Home v-show="showHome"></Home>
         <keep-alive>
             <router-view/>
         </keep-alive>
@@ -13,6 +13,12 @@ export default {
   name: 'App',
   components: {
       Home
+  },
+  computed: {
+      showHome () {
+          if (this.$route.name === 'Zhuye' || this.$route.name === 'Time' || this.$route.name === 'About' || this.$route.name === 'Article') return true
+          else return false
+      }
   },
   mounted () {
       window.addEventListener('hashchange', () => {

@@ -1,8 +1,13 @@
 <template>
     <el-row>
-        <el-col :lg="{span: 4}" id="sidebar" style="overflow:auto;position:fixed;top:0;bottom:0;transition:margin .8s">
+        <el-col :md="{span: 4}" :lg="{span: 4}" id="sidebar" style="overflow:auto;position:fixed;top:0;bottom:0;transition:margin .4s">
             <div class="home-info">
-                <div class="info-img" v-show=false></div>
+                <div class="info-img"></div>
+                <div class="info-text">
+                    <p class="info-name">{{info.user_info.Name}}</p>
+                    <p class="info-email">{{info.user_info.Email}}</p>
+                    <a :href="'mailto:' + info.user_info.Email" title="联系我"><i class="el-icon-message"></i></a>
+                </div>
             </div>
             <el-menu>
                 <router-link to="/">
@@ -22,7 +27,7 @@
                         <i class="el-icon-collection-tag" style="color:#4caf50"></i>
                         <span slot="title">分类</span>
                     </template>
-                    <el-menu-item :index="'3-item.tag_id'" v-for="item of tags" :key="item.tag_id">
+                    <el-menu-item :index="'3-' + item.tag_id" v-for="item of tags" :key="item.tag_id">
                         {{item.tag}}
                         <span class="artcount">{{item.count}}</span>
                     </el-menu-item>
@@ -84,14 +89,12 @@ export default {
     },
     mounted () {
         this.getTag()
+        this.getInfo()
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-    .el-row >>> .el-drawer__header
-        margin 0
-        padding 0
     .artcount
         display inline-block
         width 22px
@@ -106,7 +109,6 @@ export default {
     i + span
         padding-left 6%
     .el-row
-        height 100%
         position absolute
         top 0
         bottom 0
@@ -116,18 +118,32 @@ export default {
             height 100%
             background #fff
             .home-info
-                position relative
                 height 30%
                 background url(/static/info-back.jpg) no-repeat
                 background-size 100% 100%
+                .info-text
+                    width 100%
+                    height 40%
+                    position relative
+                    background rgba(0, 0, 0, .2)
+                    color #fff
+                    .info-name
+                        padding 20px 0 0 16px
+                        font-size 1.1em
+                    .info-email
+                        padding 20px 0 0 16px
+                        font-size 1.1em
+                        letter-spacing 1px
+                    i
+                        position absolute
+                        top 34%
+                        right 6%
+                        font-size 1.8em
+                        color #fff
+                        cursor pointer
                 .info-img
-                    position absolute
-                    top 6%
-                    left 6%
-                    width 72px
-                    height 72px
-                    background #fff
-                    border-radius 50%
+                    width 100%
+                    height 60%
             .el-menu
                 height 70%
 </style>
