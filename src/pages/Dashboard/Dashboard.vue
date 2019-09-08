@@ -11,9 +11,11 @@
                         <i class="el-icon-setting" style="color:#fff"></i>
                         <span slot="title">系统设置</span>
                     </template>
-                    <el-menu-item index="1-1" style="padding-left:53px">
-                        <span>个人资料</span>
-                    </el-menu-item>
+                    <router-link to="/profile">
+                        <el-menu-item index="1-1" style="padding-left:53px">
+                            <span>个人资料</span>
+                        </el-menu-item>
+                    </router-link>
                     <el-menu-item index="1-2" style="padding-left:53px">
                         <span>博客设置</span>
                     </el-menu-item>

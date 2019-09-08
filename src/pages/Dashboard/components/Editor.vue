@@ -2,10 +2,12 @@
   <div class="content">
       <div class="header">
           <el-input class="title" type="text" placeholder="请输入文章标题" maxlength="20" v-model="article.title"></el-input>
-          <el-button class="publish" @click="showPublish=!showPublish">发布文章</el-button>
-          <router-link class="backhome" tag="el-button" to="/">返回主页</router-link>
+          <div class="header-button">
+              <el-button class="publish" @click="showPublish=!showPublish">发布文章</el-button>
+              <router-link class="backhome" tag="el-button" to="/">返回主页</router-link>
+          </div>
       </div>
-      <mavon-editor :plain="true" @save="handleSave"/>
+      <mavon-editor :plain="true" @change="handleChange" @save="handleSave"/>
       <div class="publish-back" v-show="showPublish">
           <el-card class="publish-content">
               <h4 style="font-weight: bold;font-size:1.2em">发布文章</h4>
@@ -17,7 +19,7 @@
                   </el-select>
               </div>
               <div class="button-row">
-                  <button class="button-cancle" @click="showPublish=!showPublish">取消</button>
+                  <button class="button-cancle" @click="showPublish=false">取消</button>
                   <button class="button-publish" :plain="true" @click="handlePublish">发布文章</button>
               </div>
           </el-card>
@@ -43,9 +45,11 @@ export default {
         }
     },
     methods: {
-        handleSave (value, render) {
+        handleChange (value, render) {
             this.article.value = value
             this.article.render = render
+        },
+        handleSave (value, render) {
             if (this.article.title === '') {
                 this.$message.error({
                     message: '文章标题不能为空'
@@ -60,8 +64,8 @@ export default {
                 const that = this
                 axios.post('/api/create_article', {
                     title: this.article.title,
-                    value: this.article.value,
-                    render: this.article.render,
+                    value: value,
+                    render: render,
                     id: this.article.id
                 })
                     .then(function (res) {
@@ -89,21 +93,36 @@ export default {
                 })
                 return 0
             } else {
+                this.showPublish = false
                 const that = this
-                axios.post('/api/publish_article', {
+                axios.post('/api/create_article', {
                     title: this.article.title,
                     value: this.article.value,
                     render: this.article.render,
-                    id: this.article.id,
-                    tags: this.selected
+                    id: this.article.id
                 })
                     .then(function (res) {
                         res = res.data
-                        if (res.success === 1) {
-                            that.$message({
-                                message: '发布成功',
-                                type: 'success'
+                        console.log(res)
+                        if (res.success === 1) { // 创建成功 可以发送Publish请求了
+                            that.article.id = res.data
+                            axios.post('/api/publish_article', {
+                                title: that.article.title,
+                                value: that.article.value,
+                                render: that.article.render,
+                                id: that.article.id,
+                                tags: that.selected
                             })
+                                .then(function (res) {
+                                    res = res.data
+                                    if (res.success === 1) {
+                                        that.$message({
+                                            message: '发布成功',
+                                            type: 'success'
+                                        })
+                                        that.$route.push('/')
+                                    }
+                                })
                         }
                     })
             }
@@ -138,16 +157,21 @@ export default {
         left 0
         background #fff
         .header
+            width 100%
             height 10%
             .title
-                width 80%
-                margin 1% 2%
-            .publish
-                background #4caf50
-                color #fff
-            .backhome
-                background #ca0c16
-                color #fff
+                width 70%
+                margin 10px 10px
+            .header-button
+                width 25%
+                margin-left 20px
+                display inline-block
+                .publish
+                    background #4caf50
+                    color #fff
+                .backhome
+                    background #ca0c16
+                    color #fff
         .mavon-editor
             height 90%
         .publish-back

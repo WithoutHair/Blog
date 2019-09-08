@@ -7,6 +7,7 @@
                 <el-card style="margin-top:30px;">
                     <p style="margin-bottom:10px;font-weight:bold;font-size:1.6em">{{item.title}}</p>
                     <p><i class="el-icon-view" style="padding-right:3px"></i>{{item.watch}}</p>
+                    <p class="summary" v-html="item.render.substr(0, 200) + ' ......'"></p>
                 </el-card>
             </router-link>
         </div>
@@ -57,13 +58,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+    @import ('~styles/mixins.styl')
     #section
-        position absolute
-        top 0
-        bottom 0
-        right 0
-        width 83.333%
-        transition width .4s
+        section()
         .fold
             padding 10px 0 0 14px
             cursor pointer
@@ -74,4 +71,6 @@ export default {
             margin 20px auto
             .el-card:hover
                 background #eee
+            .summary
+                summary()
 </style>

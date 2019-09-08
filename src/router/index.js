@@ -14,8 +14,9 @@ export default new Router({
         {path: '/time', name: 'Time', component: () => import('@/pages/Home/components/Time')},
         {path: '/about', name: 'About', component: () => import('@/pages/Home/components/About')},
         {path: '/article/:id', name: 'Article', component: () => import('@/pages/Home/components/Article')},
+        {path: '/category/:tag', name: 'Category', component: () => import('@/pages/Home/components/Category')},
         {path: '/login', name: 'Login', component: () => import('@/pages/Login/Login')},
-        {path: '/dashboard', name: 'Dashboard', component: () => import('@/pages/Dashboard/Dashboard')},
+        {path: '/profile', name: 'Profile', component: () => import('@/pages/Dashboard/components/Profile')},
         {path: '/editor', name: 'Editor', component: () => import('@/pages/Dashboard/components/Editor')}
     ]
 })

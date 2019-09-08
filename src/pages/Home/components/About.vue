@@ -9,10 +9,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+    @import ('~styles/mixins.styl')
     #section
-        position absolute
-        top 0
-        bottom 0
-        right 0
-        width 83.333%
+        section()
 </style>

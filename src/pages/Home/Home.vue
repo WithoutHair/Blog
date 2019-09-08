@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-col :md="{span: 4}" :lg="{span: 4}" id="sidebar" style="overflow:auto;position:fixed;top:0;bottom:0;transition:margin .4s">
+        <el-col :sm="{span:4}" :md="{span: 4}" :lg="{span: 4}" id="sidebar" style="overflow:auto;position:fixed;top:0;bottom:0;transition:margin .4s">
             <div class="home-info">
                 <div class="info-img"></div>
                 <div class="info-text">
@@ -9,7 +9,7 @@
                     <a :href="'mailto:' + info.user_info.Email" title="联系我"><i class="el-icon-message"></i></a>
                 </div>
             </div>
-            <el-menu>
+            <el-menu router :default-active="$route.path">
                 <router-link to="/">
                     <el-menu-item index="1">
                         <i class="el-icon-s-home" style="color:#2196f3"></i>
@@ -27,7 +27,11 @@
                         <i class="el-icon-collection-tag" style="color:#4caf50"></i>
                         <span slot="title">分类</span>
                     </template>
-                    <el-menu-item :index="'3-' + item.tag_id" v-for="item of tags" :key="item.tag_id">
+                    <el-menu-item
+                        v-for="item of tags"
+                        :key="item.tag_id"
+                        :index="'/Category/' + item.tag_id"
+                    >
                         {{item.tag}}
                         <span class="artcount">{{item.count}}</span>
                     </el-menu-item>
@@ -60,7 +64,11 @@ export default {
     data () {
         return {
             tags: [],
-            info: {}
+            info: {
+                user_info: {},
+                blog_info: {}
+            },
+            article: []
         }
     },
     methods: {
@@ -104,7 +112,7 @@ export default {
         top 16px
         right 48px
         text-align center
-        background purple
+        background #696969
         color #fff
     i + span
         padding-left 6%
