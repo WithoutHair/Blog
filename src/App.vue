@@ -36,7 +36,7 @@ export default {
           else return false
       },
       showDashboard () {
-          if (this.$route.name === 'Profile') return true
+          if (this.$route.name === 'Profile' || this.$route.name === 'Blog') return true
           else return false
       }
   },

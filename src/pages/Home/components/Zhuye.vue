@@ -11,13 +11,18 @@
                 </el-card>
             </router-link>
         </div>
+        <back-top></back-top>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import BackTop from '@/pages/common/BackTop'
 export default {
     name: 'HomeZhuye',
+    components: {
+        BackTop
+    },
     data () {
         return {
             showfold: true,
@@ -67,7 +72,7 @@ export default {
             color #bbb
             font-size 2em
         .article-info
-            width 64%
+            width 840px
             margin 20px auto
             .el-card:hover
                 background #eee

@@ -7,7 +7,7 @@
               <router-link class="backhome" tag="el-button" to="/">返回主页</router-link>
           </div>
       </div>
-      <mavon-editor :plain="true" @change="handleChange" @save="handleSave"/>
+      <mavon-editor :plain="true" ref=md @change="handleChange" @save="handleSave" @imgAdd="$imgAdd"/>
       <div class="publish-back" v-show="showPublish">
           <el-card class="publish-content">
               <h4 style="font-weight: bold;font-size:1.2em">发布文章</h4>
@@ -45,6 +45,24 @@ export default {
         }
     },
     methods: {
+        $imgAdd (pos, $file) {
+           const that = this
+            // 第一步.将图片上传到服务器.
+           var formdata = new FormData()
+           formdata.append('file', $file)
+           formdata.append('dst', '/data/img/')
+           axios({
+               url: '/api/upload',
+               method: 'post',
+               data: formdata,
+               headers: { 'Content-Type': 'multipart/form-data' }
+           }).then((url) => {
+               // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+               // $vm.$img2Url 详情见本页末尾
+               url = that.ip + url.data.data
+               that.$refs.md.$img2Url(pos, url)
+           })
+        },
         handleChange (value, render) {
             this.article.value = value
             this.article.render = render
@@ -121,8 +139,12 @@ export default {
                                             type: 'success'
                                         })
                                         that.$route.push('/')
+                                    } else {
+                                        that.$message.error('发布失败')
                                     }
                                 })
+                        } else {
+                            that.$message.error('发布失败')
                         }
                     })
             }

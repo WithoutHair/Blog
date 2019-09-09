@@ -6,13 +6,18 @@
         <div class="markdown-body content" v-html="article.render">
             {{article.render}}
         </div>
+        <back-top></back-top>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import BackTop from '@/pages/common/BackTop'
 export default {
     name: 'HomeArticle',
+    components: {
+        BackTop
+    },
     data () {
         return {
             lastid: 0,

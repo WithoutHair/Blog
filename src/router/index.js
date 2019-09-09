@@ -17,6 +17,7 @@ export default new Router({
         {path: '/category/:tag', name: 'Category', component: () => import('@/pages/Home/components/Category')},
         {path: '/login', name: 'Login', component: () => import('@/pages/Login/Login')},
         {path: '/profile', name: 'Profile', component: () => import('@/pages/Dashboard/components/Profile')},
+        {path: '/blog', name: 'Blog', component: () => import('@/pages/Dashboard/components/Blog')},
         {path: '/editor', name: 'Editor', component: () => import('@/pages/Dashboard/components/Editor')}
     ]
 })

@@ -14,6 +14,7 @@ import 'styles/iconfont.css'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 axios.defaults.baseURL = apiConfig.baseURL
+Vue.prototype.ip = 'http://129.204.186.24:8000'
 
 /* eslint-disable no-new */
 new Vue({

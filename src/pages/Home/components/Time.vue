@@ -8,7 +8,6 @@
                   <el-card>
                       <p style="margin-bottom:2%;font-weight:bold;font-size:1.6em">{{item.title}}</p>
                       <p><i class="el-icon-view" style="padding-right:3px"></i>{{item.watch}}</p>
-                      <p class="summary" v-html="item.render.substr(0, 200) + ' ......'"></p>
                   </el-card>
               </router-link>
           </el-timeline-item>
@@ -73,6 +72,4 @@ export default {
             margin 20px auto
             .el-card:hover
                 background #eee
-            .summary
-                summary()
 </style>

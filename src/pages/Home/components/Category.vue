@@ -7,7 +7,6 @@
                 <el-card style="margin-top:30px;">
                     <p style="margin-bottom:10px;font-weight:bold;font-size:1.6em">{{item.title}}</p>
                     <p><i class="el-icon-view" style="padding-right:3px"></i>{{item.watch}}</p>
-                    <p class="summary" v-html="item.render.substr(0, 200) + ' ......'"></p>
                 </el-card>
             </router-link>
         </div>
@@ -71,6 +70,4 @@ export default {
         .article-info
             width 64%
             margin 20px auto
-            .summary
-                summary()
 </style>

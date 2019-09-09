@@ -1,9 +1,10 @@
 <template>
-  <div id="section">
+  <div id="section-dash">
       <div class="content">
           <h3>个人资料</h3>
-          <el-upload class="uploade" action="http://129.204.186.24:8000/static/img">
+          <el-upload class="uploade" :show-file-list="false" action="/api/upload" :before-upload="beforeUpload">
               <img style="width:180px;height:180px" v-if="imageUrl" :src="imageUrl">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               <p>点击上传</p>
           </el-upload>
       </div>
@@ -17,18 +18,22 @@ export default {
         return {
             imageUrl: 'http://129.204.186.24:8000/static/img/head.png'
         }
+    },
+    methods: {
+        beforeUpload (file) {
+            const isPng = file.type === 'image/png'
+            if (!isPng) {
+                this.$message.error('上传头像图片只能是 Png 格式!')
+            }
+        }
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-    #section
-        width 83.333%
-        position absolute
-        top 10%
-        right 0
-        bottom 0
-        background #fff
+    @import ('~styles/mixins.styl')
+    #section-dash
+        section-dash()
         .content
             width 80%
             height 100%

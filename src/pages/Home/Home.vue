@@ -2,7 +2,9 @@
     <el-row>
         <el-col :sm="{span:4}" :md="{span: 4}" :lg="{span: 4}" id="sidebar" style="overflow:auto;position:fixed;top:0;bottom:0;transition:margin .4s">
             <div class="home-info">
-                <div class="info-img"></div>
+                <div class="info-img">
+                    <img src="http://129.204.186.24:8000/static/img/head.png">
+                </div>
                 <div class="info-text">
                     <p class="info-name">{{info.user_info.Name}}</p>
                     <p class="info-email">{{info.user_info.Email}}</p>
@@ -121,7 +123,6 @@ export default {
         top 0
         bottom 0
         left 0
-        transition all 3s cubic-bezier(0, 0, 0.2, 1);
         .el-col
             height 100%
             background #fff
@@ -150,8 +151,17 @@ export default {
                         color #fff
                         cursor pointer
                 .info-img
+                    display flex
+                    align-items center
+                    justify-content center
                     width 100%
                     height 60%
+                    img
+                        height 60%
+                        border-radius 50%
+                        &:hover
+                            transform rotateZ(36000deg)
+                            transition transform 20s ease-in-out
             .el-menu
                 height 70%
 </style>

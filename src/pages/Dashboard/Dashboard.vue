@@ -25,9 +25,11 @@
                         <i class="el-icon-edit" style="color:#fff"></i>
                         <span slot="title">文章管理</span>
                     </template>
-                    <el-menu-item index="2-1" style="padding-left:53px">
-                        <span>文章列表</span>
-                    </el-menu-item>
+                    <router-link to="/blog">
+                        <el-menu-item index="2-1" style="padding-left:53px">
+                            <span>文章列表</span>
+                        </el-menu-item>
+                    </router-link>
                     <el-menu-item index="2-2" style="padding-left:53px">
                         <span>草稿箱</span>
                     </el-menu-item>
