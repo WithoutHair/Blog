@@ -9,12 +9,32 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import 'styles/reset.css'
-import 'styles/iconfont.css'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 axios.defaults.baseURL = apiConfig.baseURL
 Vue.prototype.ip = 'http://129.204.186.24:8000'
+axios.interceptors.request.use(config => {
+    let token = localStorage.getItem('token')
+    if (token) {
+          config.headers.token = token
+    }
+    return config
+}, err => {
+    return Promise.reject(err)
+})
+axios.interceptors.response.use(config => {
+    return config
+}, err => {
+    if (err.response.status === 401) {
+        setTimeout(() => {
+            router.replace({
+                path: '/login'
+            })
+        }, 1000)
+    }
+    return Promise.reject(err)
+})
 
 /* eslint-disable no-new */
 new Vue({

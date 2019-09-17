@@ -4,10 +4,9 @@
             <el-table :data="article" :default-sort = "{prop: 'date', order: 'descending'}" max-height="460" border>
                 <el-table-column prop="create_at" label="日期" sortable></el-table-column>
                 <el-table-column prop="title" label="标题" min-width="140"></el-table-column>
-                <el-table-column prop="watch" label="浏览量" width="100" sortable></el-table-column>
                 <el-table-column label="操作" style="border:none" width="100">
                     <template slot-scope="scope">
-                        <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button @click="handleEdit(scope.row)" type="text" size="small">发布</el-button>
                         <el-button @click="toDelete(scope.row)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
@@ -27,7 +26,7 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'DashBlog',
+    name: 'DashDraft',
     data () {
         return {
             dialogVisible: false,
@@ -38,7 +37,7 @@ export default {
     methods: {
         getListArticles () {
             const that = this
-            axios.get('/api/list_articles')
+            axios.get('/api/list_articles?state=1')
                 .then(function (res) {
                     res = res.data
                     if (res.success === 1) {
@@ -47,7 +46,7 @@ export default {
                     }
                 })
         },
-        handleEdit (row) { // 编辑文章
+        handleEdit (row) {
             let routeData = this.$router.resolve({path: '/Editor', query: {id: row.article_id}})
             window.open(routeData.href, '_blank')
         },
@@ -66,8 +65,6 @@ export default {
                             type: 'success'
                         })
                         that.getListArticles()
-                    } else {
-                        that.$message.error('删除失败')
                     }
                     that.dialogVisible = false
                 })

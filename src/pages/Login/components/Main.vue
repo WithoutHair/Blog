@@ -79,6 +79,7 @@ export default {
                     })
                     .then(function (res) {
                         if (res.data.success) {
+                            localStorage.setItem('token', res.data.data.token)
                             that.$router.push('/')
                         } else {
                             that.form.password = ''

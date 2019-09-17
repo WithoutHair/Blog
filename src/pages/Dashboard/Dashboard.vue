@@ -1,10 +1,10 @@
 <template>
     <el-row>
         <el-col :md="{span:4}" :lg="{span:4}" id="sidebar-dash">
-            <div class="dash-info">
+            <router-link tag="div" class="dash-info" to="/">
                 <img src="~styles/images/login-icon.jpg">
                 <span>不如回家卖红薯</span>
-            </div>
+            </router-link>
             <el-menu>
                 <el-submenu index="1">
                     <template slot="title">
@@ -30,22 +30,29 @@
                             <span>文章列表</span>
                         </el-menu-item>
                     </router-link>
-                    <el-menu-item index="2-2" style="padding-left:53px">
-                        <span>草稿箱</span>
-                    </el-menu-item>
+                    <router-link to="/draft">
+                        <el-menu-item index="2-2" style="padding-left:53px">
+                            <span>草稿箱</span>
+                        </el-menu-item>
+                    </router-link>
+                    <router-link to="/depot">
+                        <el-menu-item index="2-3" style="padding-left:53px">
+                            <span>回收站</span>
+                        </el-menu-item>
+                    </router-link>
                 </el-submenu>
-                <el-submenu index="3">
-                    <template slot="title">
-                        <i class="el-icon-document" style="color:#fff"></i>
-                        <span slot="title">操作日志</span>
-                    </template>
-                </el-submenu>
+                <el-menu-item index="3">
+                    <i class="el-icon-document" style="color:#fff"></i>
+                    <span slot="title">操作日志</span>
+                </el-menu-item>
             </el-menu>
         </el-col>
         <el-col :md="{span:20}" :lg="{span:20}" class="header">
+            <i class="el-icon-s-fold fold" v-show="showfold" @click="handleFold"></i>
+            <i class="el-icon-s-unfold fold" v-show="!showfold" @click="handleUnFold"></i>
             <router-link to="/editor" target="_blank">
                 <img src="~styles/images/write.png">
-                <span style="color:#fff">写博客</span>
+                <span>写博客</span>
             </router-link>
         </el-col>
     </el-row>
@@ -53,7 +60,28 @@
 
 <script>
 export default {
-    name: 'Dashboard'
+    name: 'Dashboard',
+    data () {
+        return {
+            showfold: true
+        }
+    },
+    methods: {
+        handleFold () {
+            const sidebar = document.querySelector('#sidebar-dash')
+            const section = document.querySelector('#section-dash')
+            sidebar.style.marginLeft = -100 + '%'
+            section.style.width = 100 + '%'
+            this.showfold = !this.showfold
+        },
+        handleUnFold () {
+            const sidebar = document.querySelector('#sidebar-dash')
+            const section = document.querySelector('#section-dash')
+            sidebar.style.marginLeft = 0
+            section.style.width = 83.3 + '%'
+            this.showfold = !this.showfold
+        }
+    }
 }
 </script>
 
@@ -86,6 +114,7 @@ export default {
                 justify-content center
                 height 10%
                 background #2F2F4F
+                cursor pointer
                 img
                     height 60%
                     padding-right 5px
@@ -95,7 +124,19 @@ export default {
                     color #fff
         .header
             height 10%
-            background green
+            display flex
+            align-items center
             img
-                height 40%
+                height 34px
+                padding-left 10px
+            .fold
+                padding 0 0 0 14px
+                cursor pointer
+                color #bbb
+                font-size 2em
+            span
+                font-size 16px
+                color #000
+                &:hover
+                    color red
 </style>

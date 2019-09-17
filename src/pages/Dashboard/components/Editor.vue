@@ -7,7 +7,7 @@
               <router-link class="backhome" tag="el-button" to="/">返回主页</router-link>
           </div>
       </div>
-      <mavon-editor :plain="true" ref=md @change="handleChange" @save="handleSave" @imgAdd="$imgAdd"/>
+      <mavon-editor v-model="article.value" :plain="true" ref=md @change="handleChange" @save="handleSave" @imgAdd="$imgAdd"/>
       <div class="publish-back" v-show="showPublish">
           <el-card class="publish-content">
               <h4 style="font-weight: bold;font-size:1.2em">发布文章</h4>
@@ -63,7 +63,7 @@ export default {
                that.$refs.md.$img2Url(pos, url)
            })
         },
-        handleChange (value, render) {
+        handleChange (value, render) { // 编辑区改变时保存
             this.article.value = value
             this.article.render = render
         },
@@ -138,7 +138,7 @@ export default {
                                             message: '发布成功',
                                             type: 'success'
                                         })
-                                        that.$route.push('/')
+                                        that.$router.push('/')
                                     } else {
                                         that.$message.error('发布失败')
                                     }
@@ -159,10 +159,28 @@ export default {
                         that.tags = data
                     }
                 })
+        },
+        getArticle (id) {
+            const that = this
+            axios.get('/api/article_detail?id=' + id)
+                .then(function (res) {
+                    res = res.data
+                    if (res.success === 1) {
+                        const data = res.data
+                        that.article.title = data.title
+                        that.article.value = data.value
+                    }
+                })
         }
     },
     mounted () {
         this.handleTag()
+        if (this.$route.query.id) {
+            this.getArticle(this.$route.query.id)
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+        axios.get('/api/pong')
     }
 }
 </script>

@@ -22,7 +22,8 @@ export default {
     data () {
         return {
             showfold: true,
-            article: []
+            article: [],
+            y: 0
         }
     },
     methods: {
@@ -54,6 +55,13 @@ export default {
     },
     mounted () {
         this.getListArticles()
+    },
+    activated () {
+        document.querySelector('#section').scrollTop = this.y || 0
+    },
+    beforeRouteLeave (to, from, next) {
+        this.y = document.querySelector('#section').scrollTop
+        next()
     }
 }
 </script>

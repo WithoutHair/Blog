@@ -4,7 +4,19 @@
 
 <script>
 export default {
-    name: 'HomeAbout'
+    name: 'HomeAbout',
+    data () {
+        return {
+            y: 0
+        }
+    },
+    activated () {
+        document.querySelector('#section').scrollTop = this.y || 0
+    },
+    beforeRouteLeave (to, from, next) {
+        this.y = document.querySelector('#section').scrollTop
+        next()
+    }
 }
 </script>
 

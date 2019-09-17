@@ -6,7 +6,7 @@
         <Home v-show="showHome"></Home>
         <Dashboard v-show="showDashboard"></Dashboard>
         <keep-alive>
-            <router-view :key="key"/>
+            <router-view :key="$route.fullPath"/>
         </keep-alive>
     </div>
 </template>
@@ -26,9 +26,6 @@ export default {
       Dashboard
   },
   computed: {
-      key () {
-          return this.$route.path + Math.random()
-      },
       showHome () {
           if (this.$route.name === 'Zhuye' || this.$route.name === 'Time' ||
               this.$route.name === 'About' || this.$route.name === 'Article' ||
@@ -36,7 +33,8 @@ export default {
           else return false
       },
       showDashboard () {
-          if (this.$route.name === 'Profile' || this.$route.name === 'Blog') return true
+          if (this.$route.name === 'Profile' || this.$route.name === 'Blog' ||
+              this.$route.name === 'Draft' || this.$route.name === 'Depot') return true
           else return false
       }
   },
@@ -75,4 +73,6 @@ export default {
         bottom 0
         left 0
         background #fff
+    body .el-table th.gutter
+        display table-cell!important
 </style>

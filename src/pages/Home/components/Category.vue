@@ -7,6 +7,7 @@
                 <el-card style="margin-top:30px;">
                     <p style="margin-bottom:10px;font-weight:bold;font-size:1.6em">{{item.title}}</p>
                     <p><i class="el-icon-view" style="padding-right:3px"></i>{{item.watch}}</p>
+                    <p class="summary" v-html="item.render.replace(/<\/?(img)[^>]*>/gi, '').substr(0, 200) + ' ......'"></p>
                 </el-card>
             </router-link>
         </div>
@@ -21,7 +22,8 @@ export default {
         return {
             showfold: true,
             lastTag: '',
-            article: []
+            article: [],
+            y: 0
         }
     },
     methods: {
@@ -54,6 +56,13 @@ export default {
     mounted () {
         this.lastTag = this.$route.params.tag
         this.getListArticles(this.lastTag)
+    },
+    activated () {
+        document.querySelector('#section').scrollTop = this.y || 0
+    },
+    beforeRouteLeave (to, from, next) {
+        this.y = document.querySelector('#section').scrollTop
+        next()
     }
 }
 </script>
@@ -70,4 +79,6 @@ export default {
         .article-info
             width 64%
             margin 20px auto
+            .summary
+                summary()
 </style>

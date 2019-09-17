@@ -1,7 +1,9 @@
 <template>
     <div class="back-img">
         <div class="back-loading" v-if="showLoading">
-            <div class="loading">Loading...</div>
+            <div class="loading">
+                <img src="~styles/images/loading.gif">
+            </div>
         </div>
         <div class="back-color">
             <login-header v-if="!showLoading"></login-header>

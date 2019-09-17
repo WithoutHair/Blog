@@ -50,19 +50,9 @@
 </template>
 
 <script>
-import HomeTime from './components/Time'
-import HomeCategory from './components/Category'
-import HomeAbout from './components/About'
-import HomeArticle from './components/Article'
 import axios from 'axios'
 export default {
     name: 'Home',
-    components: {
-        HomeTime,
-        HomeCategory,
-        HomeAbout,
-        HomeArticle
-    },
     data () {
         return {
             tags: [],

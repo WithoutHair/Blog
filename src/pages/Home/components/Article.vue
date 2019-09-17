@@ -35,16 +35,23 @@ export default {
                         that.article = data
                     }
                 })
+        },
+        refreshView (id) { // 更新浏览量
+            axios.post('/api/view_article?id=' + id, {
+                id: this.lastid
+            })
         }
     },
     mounted () {
         this.lastid = this.$route.params.id
         this.getArticle(this.lastid)
+        this.refreshView(this.lastid)
     },
     activated () {
         if (this.$route.params.id !== this.lastid) {
             this.lastid = this.$route.params.id
             this.getArticle(this.lastid)
+            this.refreshView(this.lastid)
         }
     }
 }

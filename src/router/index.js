@@ -10,7 +10,7 @@ Vue.use(mavonEditor)
 export default new Router({
     mode: 'history',
     routes: [
-        {path: '/', name: 'Zhuye', component: () => import('@/pages/Home/components/Zhuye')},
+        {path: '/', name: 'Zhuye', component: () => import('@/pages/Home/components/Default')},
         {path: '/time', name: 'Time', component: () => import('@/pages/Home/components/Time')},
         {path: '/about', name: 'About', component: () => import('@/pages/Home/components/About')},
         {path: '/article/:id', name: 'Article', component: () => import('@/pages/Home/components/Article')},
@@ -18,6 +18,13 @@ export default new Router({
         {path: '/login', name: 'Login', component: () => import('@/pages/Login/Login')},
         {path: '/profile', name: 'Profile', component: () => import('@/pages/Dashboard/components/Profile')},
         {path: '/blog', name: 'Blog', component: () => import('@/pages/Dashboard/components/Blog')},
+        {path: '/draft', name: 'Draft', component: () => import('@/pages/Dashboard/components/Draft')},
+        {path: '/depot', name: 'Depot', component: () => import('@/pages/Dashboard/components/Depot')},
         {path: '/editor', name: 'Editor', component: () => import('@/pages/Dashboard/components/Editor')}
-    ]
+    ],
+    scrollBehavior (to, from, savedPosition) {
+        return {
+            x: 0, y: localStorage.y
+        }
+    }
 })
