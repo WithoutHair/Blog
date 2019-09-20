@@ -27,11 +27,9 @@ axios.interceptors.response.use(config => {
     return config
 }, err => {
     if (err.response.status === 401) {
-        setTimeout(() => {
-            router.replace({
-                path: '/login'
-            })
-        }, 1000)
+        router.replace({
+            path: '/login'
+        })
     }
     return Promise.reject(err)
 })

@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-col :sm="{span:4}" :md="{span: 4}" :lg="{span: 4}" id="sidebar" style="overflow:auto;position:fixed;top:0;bottom:0;transition:margin .4s">
+        <el-col class="hidden-xs-only" :sm="{span:4}" :md="{span: 4}" :lg="{span: 4}" id="sidebar" style="overflow:auto;position:fixed;top:0;bottom:0;transition:margin .4s">
             <div class="home-info">
                 <div class="info-img">
                     <img src="http://129.204.186.24:8000/static/img/head.png">

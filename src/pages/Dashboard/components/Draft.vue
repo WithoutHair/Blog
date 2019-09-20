@@ -75,6 +75,7 @@ export default {
     },
     beforeRouteEnter (to, from, next) {
         axios.get('/api/pong')
+        next()
     }
 }
 </script>
