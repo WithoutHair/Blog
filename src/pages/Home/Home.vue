@@ -46,6 +46,10 @@
                 </router-link>
             </el-menu>
         </el-col>
+        <el-col class="hidden-xs-only" :sm="{span:20}" :md="{span:20}" :lg="{span:20,offset:4}" id="header">
+            <i class="el-icon-s-fold fold" v-show="showfold" @click="handleFold"></i>
+            <i class="el-icon-s-unfold fold" v-show="!showfold" @click="handleUnFold"></i>
+        </el-col>
     </el-row>
 </template>
 
@@ -60,7 +64,8 @@ export default {
                 user_info: {},
                 blog_info: {}
             },
-            article: []
+            article: [],
+            showfold: true
         }
     },
     methods: {
@@ -85,6 +90,24 @@ export default {
                         that.info = data
                     }
                 })
+        },
+        handleFold () {
+            const sidebar = document.querySelector('#sidebar')
+            const section = document.querySelector('#section')
+            const header = document.querySelector('#header')
+            sidebar.style.marginLeft = -100 + '%'
+            section.style.width = 100 + '%'
+            header.style.marginLeft = 0
+            this.showfold = !this.showfold
+        },
+        handleUnFold () {
+            const sidebar = document.querySelector('#sidebar')
+            const section = document.querySelector('#section')
+            const header = document.querySelector('#header')
+            sidebar.style.marginLeft = 0
+            section.style.width = 83.3 + '%'
+            header.style.marginLeft = 16.666 + '%'
+            this.showfold = !this.showfold
         }
     },
     mounted () {
@@ -111,9 +134,10 @@ export default {
     .el-row
         position absolute
         top 0
+        right 0
         bottom 0
         left 0
-        .el-col
+        #sidebar
             height 100%
             background #fff
             .home-info
@@ -154,4 +178,12 @@ export default {
                             transition transform 20s ease-in-out
             .el-menu
                 height 70%
+        #header
+            height 10%
+            transition margin .4s
+            .fold
+                padding 10px 0 0 14px
+                cursor pointer
+                color #bbb
+                font-size 2em
 </style>

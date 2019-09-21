@@ -1,7 +1,5 @@
 <template>
     <div id="section">
-        <i class="el-icon-s-fold fold" v-show="showfold" @click="handleFold"></i>
-        <i class="el-icon-s-unfold fold" v-show="!showfold" @click="handleUnFold"></i>
         <div class="article-info" v-infinite-scroll="load">
             <router-link v-for="item of article" :to="'/article/' + item.article_id" :key="item.article_id">
                 <el-card style="margin-top:50px">
@@ -29,7 +27,6 @@ export default {
     data () {
         return {
             showLoading: false,
-            showfold: true,
             article: [],
             offset: 0,
             count: 0, // 文章总数
@@ -57,20 +54,6 @@ export default {
                         that.showLoading = false
                     })
             }
-        },
-        handleFold () {
-            const sidebar = document.querySelector('#sidebar')
-            const section = document.querySelector('#section')
-            sidebar.style.marginLeft = -100 + '%'
-            section.style.width = 100 + '%'
-            this.showfold = !this.showfold
-        },
-        handleUnFold () {
-            const sidebar = document.querySelector('#sidebar')
-            const section = document.querySelector('#section')
-            sidebar.style.marginLeft = 0
-            section.style.width = 83.3 + '%'
-            this.showfold = !this.showfold
         },
         getListArticles () {
             const that = this
@@ -102,14 +85,11 @@ export default {
     @import ('~styles/mixins.styl')
     #section
         section()
-        .fold
-            padding 10px 0 0 14px
-            cursor pointer
-            color #bbb
-            font-size 2em
         .article-info
             width 840px
             margin 20px auto
+            @media only screen and (max-width: 767px)
+                width 80%
             .el-card:hover
                 background #eee
             .summary

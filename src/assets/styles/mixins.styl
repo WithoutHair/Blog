@@ -11,12 +11,16 @@ summary()
 
 section()
     position absolute
-    top 0
+    top 10%
     bottom 0
     right 0
     width 83.333%
     transition width .4s
     overflow-y scroll
+    @media only screen and (max-width: 767px)
+        width 100%
+        top 0
+        left 0
 
 section-dash()
     width 83.333%

@@ -1,7 +1,5 @@
 <template>
   <div id="section">
-      <i class="el-icon-s-fold fold" v-show="showfold" @click="handleFold"></i>
-      <i class="el-icon-s-unfold fold" v-show="!showfold" @click="handleUnFold"></i>
       <el-timeline>
           <el-timeline-item :timestamp="item.create_at" placement="top" v-for="item of article" :key="item.article_id">
               <router-link :to="'/article/' + item.article_id">
@@ -21,26 +19,11 @@ export default {
     name: 'HomeTime',
     data () {
         return {
-            showfold: true,
             article: [],
             y: 0
         }
     },
     methods: {
-        handleFold () {
-            const sidebar = document.querySelector('#sidebar')
-            const section = document.querySelector('#section')
-            sidebar.style.marginLeft = -100 + '%'
-            section.style.width = 100 + '%'
-            this.showfold = !this.showfold
-        },
-        handleUnFold () {
-            const sidebar = document.querySelector('#sidebar')
-            const section = document.querySelector('#section')
-            sidebar.style.marginLeft = 0
-            section.style.width = 83.3 + '%'
-            this.showfold = !this.showfold
-        },
         getListArticles () {
             const that = this
             axios.get('/api/list_articles')
@@ -70,13 +53,8 @@ export default {
     @import ('~styles/mixins.styl')
     #section
         section()
-        .fold
-            padding 10px 0 0 14px
-            cursor pointer
-            color #bbb
-            font-size 2em
         .el-timeline
-            width 64%
+            width 740px
             margin 20px auto
             .el-card:hover
                 background #eee
