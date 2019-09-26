@@ -8,8 +8,8 @@
               <p>点击上传</p>
           </el-upload>
           <div class="profile">
-              <p>昵称:{{info.user_info.Name}}</p>
-              <p>邮箱:{{info.user_info.Email}}</p>
+              <p>昵称:{{info.user_info.name}}</p>
+              <p>邮箱:{{info.user_info.email}}</p>
           </div>
           <el-button @click="showEditInfo=true">修改资料</el-button>
       </div>

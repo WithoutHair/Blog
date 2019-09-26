@@ -80,7 +80,7 @@ export default {
                     .then(function (res) {
                         if (res.data.success) {
                             localStorage.setItem('token', res.data.data.token)
-                            that.$router.push('/')
+                            that.$router.push('/profile')
                         } else {
                             that.form.password = ''
                             that.loginFailed = true

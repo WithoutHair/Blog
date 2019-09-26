@@ -1,11 +1,16 @@
 <template>
-    <div id="section-dash" style="display:flex;align-items:center;justify-content:center">
-        <div style="width:50%">
-            <el-table :data="article" :default-sort = "{prop: 'date', order: 'descending'}" max-height="460" border>
+    <div id="section-dash">
+        <div style="overflow:scroll;width:100%;height:100%">
+            <el-table :data="article" :default-sort = "{prop: 'date', order: 'descending'}" height="100%">
                 <el-table-column prop="create_at" label="日期" sortable></el-table-column>
-                <el-table-column prop="title" label="标题" min-width="140"></el-table-column>
-                <el-table-column prop="watch" label="浏览量" width="100" sortable></el-table-column>
-                <el-table-column label="操作" style="border:none" width="100">
+                <el-table-column prop="title" label="标题"></el-table-column>
+                <el-table-column prop="tags" label="标签">
+                    <template slot-scope="scope">
+                        <el-tag v-for="item of scope.row.tags" :key="item" style="margin-left:1px">{{item}}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="watch" label="浏览量" sortable></el-table-column>
+                <el-table-column label="操作" style="border:none">
                     <template slot-scope="scope">
                         <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
                         <el-button @click="toDelete(scope.row)" type="text" size="small">删除</el-button>
@@ -38,7 +43,7 @@ export default {
     methods: {
         getListArticles () {
             const that = this
-            axios.get('/api/list_articles')
+            axios.get('/api/list_articles_summary')
                 .then(function (res) {
                     res = res.data
                     if (res.success === 1) {
@@ -85,10 +90,8 @@ export default {
 
 <style lang="stylus" scoped>
     @import ('~styles/mixins.styl')
-    #section-dash >>> .el-table__header
-        border-collapse collapse
-    #section-dash >>> .el-table__body
-        border-collapse collapse
+    #section-dash >>> .has-gutter tr th
+        background #eee
     #section-dash
         section-dash()
 </style>
