@@ -6,4 +6,10 @@
 
 ## 预览图
 
-![1569834134453](C:\Users\Zihan\AppData\Roaming\Typora\typora-user-images\1569834134453.png)![1569834283524](C:\Users\Zihan\AppData\Roaming\Typora\typora-user-images\1569834283524.png)![1569834309272](C:\Users\Zihan\AppData\Roaming\Typora\typora-user-images\1569834309272.png)![1569834335025](C:\Users\Zihan\AppData\Roaming\Typora\typora-user-images\1569834335025.png)
+![登录界面](C:\Users\Zihan\Desktop\登录界面.png)
+
+![个人资料](C:\Users\Zihan\Desktop\个人资料.png)
+
+![文章列表](C:\Users\Zihan\Desktop\文章列表.png)
+
+![写博客](C:\Users\Zihan\Desktop\写博客.png)
