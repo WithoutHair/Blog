@@ -6,10 +6,10 @@
 
 ## 预览图
 
-![登录界面](C:\Users\Zihan\Desktop\登录界面.png)
+![登录界面](./static/登录界面.png)
 
-![个人资料](C:\Users\Zihan\Desktop\个人资料.png)
+![个人资料](./static/个人资料.png)
 
-![文章列表](C:\Users\Zihan\Desktop\文章列表.png)
+![文章列表](./static/文章列表.png)
 
-![写博客](C:\Users\Zihan\Desktop\写博客.png)
+![写博客](./static/写博客.png)
