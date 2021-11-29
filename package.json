@@ -17,7 +17,7 @@
     "better-scroll": "^1.15.2",
     "element-ui": "^2.11.1",
     "gulp": "^4.0.2",
-    "mavon-editor": "^2.7.5",
+    "mavon-editor": "^2.8.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",
